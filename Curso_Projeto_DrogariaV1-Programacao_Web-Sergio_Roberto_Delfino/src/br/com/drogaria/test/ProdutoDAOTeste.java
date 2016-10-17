@@ -12,10 +12,9 @@ import br.com.drogaria.domain.Produto;
 
 public class ProdutoDAOTeste {
 	@Test
-	@Ignore
 	public void salvar() throws SQLException{
 		Produto p = new Produto();
-		p.setDescricao("NOVALGINA COM 10 COMPRIMIDOS");
+		p.setDescricao("PRODUTO 1");
 		p.setPreco(2.45D);
 		p.setQuantidade(13L);
 		
@@ -24,8 +23,19 @@ public class ProdutoDAOTeste {
 		
 		p.setFabricante(f);
 		
+		Produto p2 = new Produto();
+		p2.setDescricao("PRODUTO 2");
+		p2.setPreco(2.45D);
+		p2.setQuantidade(13L);
+		
+		Fabricante f2 = new Fabricante();
+		f2.setCodigo(16L);
+		
+		p2.setFabricante(f2);
+		
 		ProdutoDAO dao = new ProdutoDAO();
 		dao.salvar(p);
+		dao.salvar(p2);
 	}
 	@Test
 	@Ignore
@@ -54,6 +64,7 @@ public class ProdutoDAOTeste {
 		
 	}
 	@Test
+	@Ignore
 	public void editar() throws SQLException {
 		Produto p = new Produto();
 		p.setCodigo(2L);

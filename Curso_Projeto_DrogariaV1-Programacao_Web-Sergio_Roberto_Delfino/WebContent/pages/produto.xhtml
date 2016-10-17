@@ -12,8 +12,37 @@
 	</ui:define>
 
 	<ui:define name="conteudo">
-		<h:form id="frmProListagem">
+	<f:event listener="#{MBProduto.CarregarListagem}" type="preRenderView"/>
+		<h:form id="frmProdListagem">
+			<p:dataTable id="tblProdListagem"
+			value="#{MBProduto.itens}" var="item"
+			emptyMessage="Nenhum registro encontrado."
+			paginator="true" rows="8" filteredValue="#{MBProduto.itensFiltrados}">
+				<f:facet name="header">
+					<h:outputText value="Produto - Listagem" /> 
+				</f:facet>
+				<p:column headerText="Código" filterBy="#{item.codigo}" sortBy="#{item.codigo}" >
+					<h:outputText value="#{item.codigo} " />
+				</p:column>
 
+				<p:column headerText="Descricao" filterBy="#{item.descricao}" sortBy="#{item.descricao}" >
+					<h:outputText value="#{item.descricao}" />
+				</p:column>
+				
+				<p:column headerText="Preço" filterBy="#{item.preco}" sortBy="#{item.preco}" >
+					<h:outputText value="#{item.preco}" />
+				</p:column>
+
+				<p:column headerText="Qtde." filterBy="#{item.quantidade}" sortBy="#{item.quantidade}" >
+					<h:outputText value="#{item.quantidade}" />
+				</p:column>
+				
+				<p:column headerText="Fabricante" filterBy="#{item.fabricante.descricao}" sortBy="#{item.fabricante.descricao}" >
+					<h:outputText value="#{item.fabricante.descricao}" />
+				</p:column>
+
+				
+			</p:dataTable>
 		</h:form>
 	</ui:define>
 </ui:composition>
