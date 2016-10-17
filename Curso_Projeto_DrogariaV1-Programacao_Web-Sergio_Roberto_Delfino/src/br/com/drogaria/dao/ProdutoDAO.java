@@ -47,14 +47,17 @@ public class ProdutoDAO {
 		
 		StringBuilder sql = new StringBuilder();
 		sql.append("UPDATE produto ");
-		sql.append("SET produto.descricao = ? ");
-		sql.append("WHERE produto.codigo = ? ");
+		sql.append("SET descricao = ?, preco = ?, quantidade = ?, fabricante_codigo = ? ");
+		sql.append("WHERE codigo = ? ");
 
 		Connection conexao = ConexaoFactory.conectar();
 
 		PreparedStatement comando = conexao.prepareStatement(sql.toString());
 		comando.setString(1, p.getDescricao());
-		comando.setLong(2, p.getCodigo());
+		comando.setDouble(2, p.getPreco());
+		comando.setLong(3, p.getQuantidade());
+		comando.setLong(4, p.getFabricante().getCodigo());
+		comando.setLong(5, p.getCodigo());
 		
 		comando.executeUpdate();
 	}
@@ -88,8 +91,9 @@ public class ProdutoDAO {
 	public ArrayList<Produto> listar() throws SQLException {
 
 		StringBuilder sql = new StringBuilder();
-		sql.append("SELECT codigo, descricao, quantidade, preco, fabricante_codigo FROM produto ");
-		sql.append("ORDER BY descricao ASC ");
+		sql.append("SELECT p.codigo, p.descricao, p.preco, p.quantidade, f.codigo, f.descricao  ");
+		sql.append("FROM produto p  ");
+		sql.append("INNER JOIN fabricante f on f.codigo = p.fabricante_codigo ");
 
 		Connection conexao = ConexaoFactory.conectar();
 
@@ -100,11 +104,16 @@ public class ProdutoDAO {
 		ArrayList<Produto> lista = new ArrayList<Produto>();
 		
 		while(resultado.next()){
+			Fabricante f = new Fabricante();
+			f.setCodigo(resultado.getLong("f.codigo"));
+			f.setDescricao(resultado.getString("f.descricao"));
+			
 			Produto p = new Produto();
 			p.setCodigo(resultado.getLong("codigo"));
 			p.setDescricao(resultado.getString("descricao"));			
 			p.setQuantidade(resultado.getLong("quantidade"));
 			p.setPreco(resultado.getDouble("preco"));
+			p.setFabricante(f);
 			
 			lista.add(p);
 		}
