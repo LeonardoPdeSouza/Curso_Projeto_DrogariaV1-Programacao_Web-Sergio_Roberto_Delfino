@@ -105,6 +105,28 @@ public class ProdutoBean {
 			JSFUtil.adicionarMensagemErro(e.getMessage());
 		}
 	}
+	
+	public void prepararEditar(){
+		try{
+			FabricanteDAO dao = new FabricanteDAO();
+			comboFabricantes = dao.listar();
+		}catch (Exception e) {
+			e.printStackTrace();
+			JSFUtil.adicionarMensagemErro(e.getMessage());
+		}
+	}
+	
+	public void editar(){
+		try{
+			ProdutoDAO dao = new ProdutoDAO();
+			dao.editar(produto);
+			itens = dao.listar();
+			JSFUtil.adicionarMensagemSucesso("Produto editado com sucesso");
+		}catch (Exception e) {
+			e.printStackTrace();
+			JSFUtil.adicionarMensagemErro(e.getMessage());
+		}
+	}
 
 
 
