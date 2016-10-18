@@ -31,13 +31,13 @@
 					<h:outputText value="#{item.descricao}" />
 				</p:column>
 
-				<p:column headerText="Preço" filterBy="#{item.preco}"
-					sortBy="#{item.preco}">
-					<h:outputText value="#{item.preco}" />
+				<p:column headerText="Preço" sortBy="#{item.preco}">
+					<h:outputText value="#{item.preco}">
+						<f:convertNumber pattern="0.00" />
+					</h:outputText>
 				</p:column>
 
-				<p:column headerText="Qtde." filterBy="#{item.quantidade}"
-					sortBy="#{item.quantidade}">
+				<p:column headerText="Qtde." sortBy="#{item.quantidade}">
 					<h:outputText value="#{item.quantidade}" />
 				</p:column>
 
@@ -88,7 +88,10 @@
 					<p:outputLabel for="txtPrecoProdNovo" value="Preço" />
 					<p:inputText id="txtPrecoProdNovo"
 						value="#{MBProduto.produto.preco}" size="10" required="true"
-						requiredMessage="O campo preço é obrigatorio" />
+						requiredMessage="O campo preço é obrigatorio"
+						converterMessage="Informe um valor válido para o campo preço">
+						<f:convertNumber/>
+					</p:inputText>
 
 					<p:outputLabel for="txtQtdProdNovo" value="Quantidade" />
 					<p:inputText id="txtQtdProdNovo"
@@ -109,9 +112,9 @@
 						update=":msgGlobal :frmProdListagem:tblProdListagem"
 						oncomplete="verificar(xhr, status, args, 'dlgProdNovo', 'tabelaProdListagem');" />
 					<p:commandButton value="Cancelar" process="@this"
-						onclick="PF('dlgProdNovo').hide();" >
+						onclick="PF('dlgProdNovo').hide();">
 						<p:resetInput target="pnlProdNovo" />
-						</p:commandButton>
+					</p:commandButton>
 				</h:panelGrid>
 			</h:form>
 		</p:dialog>
@@ -190,9 +193,9 @@
 						update=":msgGlobal :frmProdListagem:tblProdListagem"
 						oncomplete="verificar(xhr, status, args, 'dlgProdEditar', 'tabelaProdListagem');" />
 					<p:commandButton value="Cancelar" process="@this"
-						onclick="PF('dlgProdEditar').hide();" >
+						onclick="PF('dlgProdEditar').hide();">
 						<p:resetInput target="pnlProdEditar" />
-						</p:commandButton>
+					</p:commandButton>
 				</h:panelGrid>
 			</h:form>
 		</p:dialog>
