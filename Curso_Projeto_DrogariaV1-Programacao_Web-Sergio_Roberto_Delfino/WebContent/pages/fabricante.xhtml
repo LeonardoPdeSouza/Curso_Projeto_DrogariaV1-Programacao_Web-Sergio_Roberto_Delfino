@@ -58,15 +58,18 @@
 			header="Fabricante - Novo">
 			<h:form id="frmFabNovo">
 				<p:panelGrid columns="2" id="pnlFabNovo">
-					<p:outputLabel value="Descrição" />
-					<p:inputText size="30" maxlength="50"
-						value="#{MBFabricante.fabricante.descricao}" />
+					<p:outputLabel for="txtDescFabNovo" value="Descrição" />
+					<p:inputText id="txtDescFabNovo" size="30" maxlength="50"
+						value="#{MBFabricante.fabricante.descricao}" 
+						required="true"
+						requiredMessage="O campo descrição é obrigatorio"/>
 				</p:panelGrid>
 				<h:panelGrid columns="2">
 					<p:commandButton value="Gravar"
 						actionListener="#{MBFabricante.novo()}"
-						oncomplete="PF('dlgFabNovo').hide(); tabelaFabricantes.clearFilters();"
+						oncomplete="verificar(xhr, status, args, 'dlgFabNovo', 'tabelaFabricantes');"
 						update=":frmFabListagem:tblFabricantes :msgGlobal" />
+						<!-- oncomplete="PF('dlgFabNovo').hide(); tabelaFabricantes.clearFilters();" -->
 					<p:commandButton value="Cancelar"
 						onclick="PF('dlgFabNovo').hide();" />
 				</h:panelGrid>
@@ -104,14 +107,16 @@
 					<h:inputText value="#{MBFabricante.fabricante.codigo}"
 						readonly="true" />
 
-					<h:outputText value="Descrição" />
-					<h:inputText value="#{MBFabricante.fabricante.descricao}" size="30"
-						maxlength="80" />
+					<p:outputLabel for="txtDescFabNovo" value="Descrição" />
+					<p:inputText id="txtDescFabNovo" size="30" maxlength="50"
+						value="#{MBFabricante.fabricante.descricao}" 
+						required="true"
+						requiredMessage="O campo descrição é obrigatorio"/>
 				</h:panelGrid>
 				<h:panelGrid columns="2">
 					<p:commandButton value="Editar"
 						actionListener="#{MBFabricante.editar()}"
-						onclick="PF('dlgFabEditar').hide(); tabelaFabricantes.clearFilters();"
+						oncomplete="verificar(xhr, status, args, 'dlgFabEditar', 'tabelaFabricantes');"
 						update=":frmFabListagem:tblFabricantes :msgGlobal" />
 					<p:commandButton value="Cancelar"
 						onclick="PF('dlgFabEditar').hide();" />
