@@ -89,15 +89,20 @@
 					<p:inputText id="txtPrecoProdNovo"
 						value="#{MBProduto.produto.preco}" size="10" required="true"
 						requiredMessage="O campo preço é obrigatorio"
-						converterMessage="Informe um valor válido para o campo preço.">
+						converterMessage="Informe um valor válido para o campo preço."
+						validatorMessage="Informe um valor entre 0,00 e 9999,99 para o campo preço.">
 						<f:convertNumber pattern="0.00" />
+						<f:validateDoubleRange minimum="0.00" maximum="9999.99"/>
 					</p:inputText>
 
 					<p:outputLabel for="txtQtdProdNovo" value="Quantidade" />
 					<p:inputText id="txtQtdProdNovo"
 						value="#{MBProduto.produto.quantidade}" size="10" required="true"
 						requiredMessage="O campo quantidade é obrigatorio"
-						converterMessage="Informe um valor válido para o campo quantidade." />
+						converterMessage="Informe um valor válido para o campo quantidade." 
+						validatorMessage="Informe um valor entre 0 e 99 para o campo quantidade.">
+						<f:validateLongRange minimum="0" maximum="99"/>
+						</p:inputText>
 						
 					<p:outputLabel for="cbFabProdNovo" value="Fabricante" />
 					<p:selectOneMenu id="cbFabProdNovo"
@@ -173,15 +178,21 @@
 					<p:outputLabel for="txtPrecoProdEditar" value="Preço" />
 					<p:inputText id="txtPrecoProdEditar"
 						value="#{MBProduto.produto.preco}" size="10" required="true"
-						requiredMessage="O campo preço é obrigatorio" >
+						requiredMessage="O campo preço é obrigatorio" 
+						validatorMessage="Informe um valor entre 0,00 e 9999,99 para o campo preço.">
 						<f:convertNumber pattern="0.00" />
+						<f:validateDoubleRange minimum="0.00" maximum="9999.99"/>
 						</p:inputText>
 
 					<p:outputLabel for="txtQtdProdEditar" value="Quantidade" />
 					<p:inputText id="txtQtdProdEditar"
 						value="#{MBProduto.produto.quantidade}" size="10" required="true"
-						requiredMessage="O campo quantidade é obrigatorio" />
-
+						requiredMessage="O campo quantidade é obrigatorio" 
+						converterMessage="Informe um valor válido para o campo quantidade." 
+						validatorMessage="Informe um valor entre 0 e 99 para o campo quantidade.">
+						<f:validateLongRange minimum="0" maximum="99"/>
+						</p:inputText>
+						
 					<p:outputLabel for="cbFabProdEditar" value="Fabricante" />
 					<p:selectOneMenu id="cbFabProdEditar"
 						value="#{MBProduto.produto.fabricante.codigo}" filter="true"
