@@ -12,37 +12,77 @@
 	</ui:define>
 
 	<ui:define name="conteudo">
-	<f:event listener="#{MBProduto.CarregarListagem}" type="preRenderView"/>
+		<f:event listener="#{MBProduto.CarregarListagem}" type="preRenderView" />
 		<h:form id="frmProdListagem">
-			<p:dataTable id="tblProdListagem"
-			value="#{MBProduto.itens}" var="item"
-			emptyMessage="Nenhum registro encontrado."
-			paginator="true" rows="8" filteredValue="#{MBProduto.itensFiltrados}">
+			<p:dataTable id="tblProdListagem" widgetVar="tabelaProdListagem"
+			value="#{MBProduto.itens}"
+				var="item" emptyMessage="Nenhum registro encontrado."
+				paginator="true" rows="8"
+				filteredValue="#{MBProduto.itensFiltrados}">
 				<f:facet name="header">
-					<h:outputText value="Produto - Listagem" /> 
+					<h:outputText value="Produto - Listagem" />
 				</f:facet>
-				<p:column headerText="Código" filterBy="#{item.codigo}" sortBy="#{item.codigo}" >
+				<p:column headerText="Código" filterBy="#{item.codigo}"
+					sortBy="#{item.codigo}">
 					<h:outputText value="#{item.codigo} " />
 				</p:column>
 
-				<p:column headerText="Descricao" filterBy="#{item.descricao}" sortBy="#{item.descricao}" >
+				<p:column headerText="Descricao" filterBy="#{item.descricao}"
+					sortBy="#{item.descricao}">
 					<h:outputText value="#{item.descricao}" />
 				</p:column>
-				
-				<p:column headerText="Preço" filterBy="#{item.preco}" sortBy="#{item.preco}" >
+
+				<p:column headerText="Preço" filterBy="#{item.preco}"
+					sortBy="#{item.preco}">
 					<h:outputText value="#{item.preco}" />
 				</p:column>
 
-				<p:column headerText="Qtde." filterBy="#{item.quantidade}" sortBy="#{item.quantidade}" >
+				<p:column headerText="Qtde." filterBy="#{item.quantidade}"
+					sortBy="#{item.quantidade}">
 					<h:outputText value="#{item.quantidade}" />
 				</p:column>
-				
-				<p:column headerText="Fabricante" filterBy="#{item.fabricante.descricao}" sortBy="#{item.fabricante.descricao}" >
+
+				<p:column headerText="Fabricante"
+					filterBy="#{item.fabricante.descricao}"
+					sortBy="#{item.fabricante.descricao}">
 					<h:outputText value="#{item.fabricante.descricao}" />
 				</p:column>
+				<f:facet name="footer">
+					<p:commandButton value="Novo" oncomplete="PF('dlgProdNovo').show();"
+						actionListener="#{MBProduto.prepararNovo}"
+						update=":frmProdNovo:pnlProdNovo :msgGlobal"/>
+				</f:facet>
 
-				
 			</p:dataTable>
 		</h:form>
+
+		<p:dialog widgetVar="dlgProdNovo" closable="true" draggable="true"
+			resizable="false" modal="true" appendTo="@(body)"
+			header="Produto - Novo">
+			<h:form id="frmProdNovo">
+				<p:panelGrid columns="2" id="pnlProdNovo">
+					<p:outputLabel value="Descrição" />
+					<p:inputText maxlength="50" size="30"
+						value="#{MBProduto.produto.descricao}" />
+					<p:outputLabel value="Preço" />
+					<p:inputText value="#{MBProduto.produto.preco}" size="10"/>
+					<p:outputLabel value="Quantidade" />
+					<p:inputText value="#{MBProduto.produto.quantidade}" size="10"/>
+					<p:outputLabel value="Fabricante" />
+					<p:selectOneMenu value="#{MBProduto.produto.fabricante.codigo}" filter="true">
+						<f:selectItem itemValue="" itemLabel="Selecione um fabricante"/>
+						<f:selectItems value="#{MBProduto.comboFabricantes}" var="item"
+						itemValue="#{item.codigo}" itemLabel="#{item.descricao}"/>
+					</p:selectOneMenu>
+				</p:panelGrid>
+				<h:panelGrid columns="2">
+					<p:commandButton value="Gravar" actionListener="#{MBProduto.novo}"
+					update=":msgGlobal :frmProdListagem:tblProdListagem"
+					oncomplete="PF('dlgProdNovo').hide(); tabelaProdListagem.clearFilters();"/>
+					<p:commandButton value="Cancelar"
+						onclick="PF('dlgProdNovo').hide();" />
+				</h:panelGrid>
+			</h:form>
+		</p:dialog>
 	</ui:define>
 </ui:composition>
