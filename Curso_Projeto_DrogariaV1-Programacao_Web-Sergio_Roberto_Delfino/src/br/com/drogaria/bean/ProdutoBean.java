@@ -87,7 +87,20 @@ public class ProdutoBean {
 		ProdutoDAO dao = new ProdutoDAO();
 		dao.salvar(produto);
 		itens = dao.listar();
+		JSFUtil.adicionarMensagemSucesso("Produto Salvo com sucesso");
 		} catch (Exception e) {
+			e.printStackTrace();
+			JSFUtil.adicionarMensagemErro(e.getMessage());
+		}
+	}
+	
+	public void excluir(){
+		try{
+			ProdutoDAO dao = new ProdutoDAO();
+			dao.excluir(produto);
+			itens = dao.listar();
+			JSFUtil.adicionarMensagemSucesso("Produto removido com sucesso");
+		}catch (Exception e) {
 			e.printStackTrace();
 			JSFUtil.adicionarMensagemErro(e.getMessage());
 		}

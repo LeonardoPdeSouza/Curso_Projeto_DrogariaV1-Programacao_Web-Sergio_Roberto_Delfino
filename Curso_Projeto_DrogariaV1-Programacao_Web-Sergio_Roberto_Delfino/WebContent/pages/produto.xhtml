@@ -47,6 +47,17 @@
 					sortBy="#{item.fabricante.descricao}">
 					<h:outputText value="#{item.fabricante.descricao}" />
 				</p:column>
+				<p:column headerText="Opções">
+					<p:commandButton icon="ui-icon-pencil" >
+						<f:setPropertyActionListener target="#{MBProduto.produto}" value="#{item}" />
+						</p:commandButton>
+
+					<p:commandButton icon="ui-icon-trash" title="Excluir"
+						oncomplete="PF('dlgProdExcluir').show();"
+						update=":frmProdExcluir:pnlProdExcluir">
+						<f:setPropertyActionListener target="#{MBProduto.produto}" value="#{item}" />
+					</p:commandButton>
+				</p:column>
 				<f:facet name="footer">
 					<p:commandButton value="Novo" oncomplete="PF('dlgProdNovo').show();"
 						actionListener="#{MBProduto.prepararNovo}"
@@ -81,6 +92,38 @@
 					oncomplete="PF('dlgProdNovo').hide(); tabelaProdListagem.clearFilters();"/>
 					<p:commandButton value="Cancelar"
 						onclick="PF('dlgProdNovo').hide();" />
+				</h:panelGrid>
+			</h:form>
+		</p:dialog>
+		
+		<p:dialog widgetVar="dlgProdExcluir" closable="true" draggable="true" resizable="false" 
+		    modal="true" appendTo="@(body)"
+			header="Produto - Excluir">
+			<h:form id="frmProdExcluir">
+				<p:panelGrid columns="2" id="pnlProdExcluir">
+				
+					<p:outputLabel value="Código" />
+					<p:inputText value="#{MBProduto.produto.codigo}" />
+				
+					<p:outputLabel value="Descrição" />
+					<p:inputText value="#{MBProduto.produto.descricao}" />
+						
+					<p:outputLabel value="Preço" />
+					<p:inputText value="#{MBProduto.produto.preco}" />
+					
+					<p:outputLabel value="Quantidade" />
+					<p:inputText value="#{MBProduto.produto.quantidade}" />
+					
+					<p:outputLabel value="Fabricante" />
+					<p:inputText value="#{MBProduto.produto.fabricante.codigo}" />
+					
+				</p:panelGrid>
+				<h:panelGrid columns="2">
+					<p:commandButton value="Excluir" actionListener="#{MBProduto.excluir}"
+					update=":msgGlobal :frmProdListagem:tblProdListagem"
+					oncomplete="PF('dlgProdExcluir').hide(); tabelaProdListagem.clearFilters();"/>
+					<p:commandButton value="Cancelar"
+						onclick="PF('dlgProdExcluir').hide();" />
 				</h:panelGrid>
 			</h:form>
 		</p:dialog>
