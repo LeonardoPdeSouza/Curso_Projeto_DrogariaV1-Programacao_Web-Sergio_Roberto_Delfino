@@ -70,8 +70,10 @@
 						oncomplete="verificar(xhr, status, args, 'dlgFabNovo', 'tabelaFabricantes');"
 						update=":frmFabListagem:tblFabricantes :msgGlobal" />
 						<!-- oncomplete="PF('dlgFabNovo').hide(); tabelaFabricantes.clearFilters();" -->
-					<p:commandButton value="Cancelar"
-						onclick="PF('dlgFabNovo').hide();" />
+					<p:commandButton value="Cancelar" process="@this"
+						onclick="PF('dlgFabNovo').hide();" >
+						<p:resetInput target="pnlFabNovo" />
+						</p:commandButton>
 				</h:panelGrid>
 			</h:form>
 		</p:dialog>
@@ -92,7 +94,7 @@
 						actionListener="#{MBFabricante.excluir()}"
 						oncomplete="PF('dlgfabExcluir').hide(); tabelaFabricantes.clearFilters();"
 						update=":frmFabListagem:tblFabricantes :msgGlobal" />
-					<p:commandButton value="Cancelar"
+					<p:commandButton value="Cancelar"  process="@this"
 						onclick="PF('dlgfabExcluir').hide();" />
 				</h:panelGrid>
 			</h:form>
@@ -118,8 +120,10 @@
 						actionListener="#{MBFabricante.editar()}"
 						oncomplete="verificar(xhr, status, args, 'dlgFabEditar', 'tabelaFabricantes');"
 						update=":frmFabListagem:tblFabricantes :msgGlobal" />
-					<p:commandButton value="Cancelar"
-						onclick="PF('dlgFabEditar').hide();" />
+					<p:commandButton value="Cancelar" process="@this"
+						onclick="PF('dlgFabEditar').hide();" >
+						<p:resetInput target="pnlFabEditar" />
+						</p:commandButton>
 				</h:panelGrid>
 			</h:form>
 		</p:dialog>
